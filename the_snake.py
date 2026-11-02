@@ -1,4 +1,4 @@
-from random import choice, randint
+from random import randint
 
 import pygame
 
@@ -52,6 +52,7 @@ class GameObject:
         """Заготовка, переопределяется в наследниках."""
         pass
 
+
 class Apple(GameObject):
     """Класс яблока"""
 
@@ -72,6 +73,7 @@ class Apple(GameObject):
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
+
 
 class Snake(GameObject):
     """Класс змейки."""
@@ -143,6 +145,7 @@ class Snake(GameObject):
         self.next_direction = None
         self.last = None
 
+
 def handle_keys(game_object):
     """Клавиши."""
     for event in pygame.event.get():
@@ -150,26 +153,30 @@ def handle_keys(game_object):
             pygame.quit()
             raise SystemExit
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP and game_object.direction != DOWN:
+            if (event.key == pygame.K_UP
+                    and game_object.direction != DOWN):
                 game_object.next_direction = UP
-            elif event.key == pygame.K_DOWN and game_object.direction != UP:
+            elif (event.key == pygame.K_DOWN
+                    and game_object.direction != UP):
                 game_object.next_direction = DOWN
-            elif event.key == pygame.K_LEFT and game_object.direction != RIGHT:
+            elif (event.key == pygame.K_LEFT
+                    and game_object.direction != RIGHT):
                 game_object.next_direction = LEFT
-            elif event.key == pygame.K_RIGHT and game_object.direction != LEFT:
+            elif (event.key == pygame.K_RIGHT
+                    and game_object.direction != LEFT):
                 game_object.next_direction = RIGHT
 
+
 def main():
-    # Инициализация PyGame:
+    """Главный цикл игры."""
     pygame.init()
-    # Тут нужно создать экземпляры классов.
+
     snake = Snake()
     apple = Apple()
 
     while True:
         clock.tick(SPEED)
 
-        # Тут опишите основную логику игры.
         handle_keys(snake)
         snake.update_direction()
         snake.move()
