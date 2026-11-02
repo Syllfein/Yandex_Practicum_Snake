@@ -54,7 +54,7 @@ class GameObject:
 
 
 class Apple(GameObject):
-    """Класс яблока"""
+    """Класс яблока."""
 
     def __init__(self):
         """Создаем яблоко."""
@@ -181,13 +181,14 @@ def main():
         snake.update_direction()
         snake.move()
 
-        if snake.get_head_position() == apple.position:
+        head = snake.get_head_position()
+        if head == apple.position:
             snake.length += 1
             apple.randomize_position()
             while apple.position in snake.positions:
                 apple.randomize_position()
 
-        if snake.get_head_position() in snake.positions[1:]:
+        if head in snake.positions[1:]:
             snake.reset()
             screen.fill(BOARD_BACKGROUND_COLOR)
 
@@ -196,6 +197,7 @@ def main():
         snake.draw()
 
         pygame.display.update()
+
 
 if __name__ == '__main__':
     main()
